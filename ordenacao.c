@@ -1,25 +1,30 @@
-#include "blb.h"
+#include "blb.h"  //Inclui o arquivo da biblioteca "blb.h"
 
 void interageOrdenacao(){
-    
-       
-    int opcao;
-    
+
+    char nomeArquivo[] = "numeros.txt"; //Nome do arquivo a ser lida
+    int numeros[100]; //Array que armazenará os números a serem ordenados
+    int quantidade; //Variável para armazenar a quantidade de números lidos
+    FILE *arquivo = NULL; //Declaração da variável arquivo
+
+    int opcao; //Variável para armazenar a escolha do usuário
+
     do{
-            
-        printf("4. Ordenar com Bubble Sort\n");
-        printf("5. Ordenar com Quick Sort Recursivo\n");
-        printf("6. Ordenar com Quick Sort Interativo\n");
-        printf("7. Ordenar com Insertion Sort\n");
-        printf("8. Ordenar com Merge Sort Interativo\n");
-        printf("9. Ordenar com Merge Sort Recursivo\n");
-        printf("0. Retornar para o menu principal\n");
-        
-        scanf("%d", &opcao);
-    
+        //Menu de opções para escolher o tipo de ordenação
+        printf("\nEscolha o tipo de ordenação:\n");
+        printf("1. Ordenar com Bubble Sort\n");
+        printf("2. Ordenar com Quick Sort Recursivo\n");
+        printf("3. Ordenar com Quick Sort Interativo\n");
+        printf("4. Ordenar com Insertion Sort\n");
+        printf("5. Ordenar com Merge Sort Interativo\n");
+        printf("6. Ordenar com Merge Sort Recursivo\n");
+        printf("0. Sair\n");
+
+        scanf("%d", &opcao); //Leitura da escolha do usuário
+
     switch(opcao){
-        
-            case 4: 
+             //Mede o tempo de execução do Bubble Sort e exibe os resultados
+            case 1:
             {
                 clock_t inicio, fim;
                 inicio = clock();
@@ -28,8 +33,8 @@ void interageOrdenacao(){
                 printf("Números ordenados com Bubble Sort. \nTempo: %f segundos.\n", (double)(fim - inicio) / CLOCKS_PER_SEC);
             }
             break;
-
-            case 5: 
+            //Mede o tempo de execução do Quick Sort Recursivo e exibe os resultados
+            case 2:
             {
                 clock_t inicio, fim;
                 inicio = clock();
@@ -38,10 +43,10 @@ void interageOrdenacao(){
                 printf("Números ordenados com Quick Sort. \nTempo: %f segundos.\n", (double)(fim - inicio) / CLOCKS_PER_SEC);
             }
             break;
-            
-            case 6: 
+            //Mede o tempo de execução do Quick Sort Interativo e exibe os resultados
+            case 3:
             {
-                
+
             clock_t inicio, fim;
             inicio = clock();
             quickSortIterativo(numeros, quantidade);
@@ -49,9 +54,8 @@ void interageOrdenacao(){
             printf("Números ordenados com Quick Sort Iterativo. \nTempo: %f segundos.\n", (double)(fim - inicio) / CLOCKS_PER_SEC);
             }
             break;
-                    
-
-            case 7:
+            //Mede o tempo de execução do Insertion Sort e exibe os resultados
+            case 4:
             {
                 clock_t inicio, fim;
                 inicio = clock();
@@ -60,10 +64,9 @@ void interageOrdenacao(){
                 printf("Números ordenados com Insertion Sort. \nTempo: %f segundos.\n", (double)(fim - inicio) / CLOCKS_PER_SEC);
             }
             break;
-            
-            case 8: {
-                
-            
+            //Mede o tempo de execução do Merge Sort Interativo e exibe os resultados
+            case 5: 
+            {
                 clock_t inicio, fim;
                 inicio = clock();
                 mergeSortIterativo(numeros, quantidade);
@@ -71,66 +74,45 @@ void interageOrdenacao(){
                 printf("Números ordenados com Merge Sort Iterativo. \nTempo: %f segundos.\n", (double)(fim - inicio) / CLOCKS_PER_SEC);
             }
             break;
-                
-            
-            case 9: {
+            //Mede o tempo de execução do Merge Sort Recursivo e exibe os resultados
+            case 6: 
+            { 
             clock_t inicio, fim;
             inicio = clock();
             mergeSortRecursivo(numeros, 0, quantidade - 1);
             fim = clock();
-            
+
             printf("Números ordenados com Merge Sort Recursivo. \nTempo: %f segundos.\n", (double)(fim - inicio) / CLOCKS_PER_SEC);
             }
             break;
-        
-        case 0: {
-              
+        //Encerra o programa
+        case 0:
+        {
             printf("Saindo do programa.\n");
             return;
         }
         break;
-    
-             
+        //Mensagem de erro para escolha inválida
         default:
         printf("Erro! Por favor, escolha uma das opções fornecidadas.\n");
-        
         }
-                
-    }while(opcao != 0);
         
-    
+    }while(opcao != 0); //Loop continua até o usuário escolher sair
+
+
 }
-
-void carregarNumeros(const char *nomeArquivo, int *numeros, int *quantidade){
-
-    int num;
-    *quantidade = 0;
+//Implementação do algoritmo Bubble Sort
+void bubbleSort(int *numeros, int quantidade){
     
-    FILE *arquivo = fopen(nomeArquivo, "r");
-    
-    if (arquivo == NULL) 
+    int temp;
+
+    for (int i = 0; i < quantidade - 1; i++) 
     {
-        printf("Erro ao abrir o arquivo.\n");
-        exit(1);
-    }
-
-        while (fscanf(arquivo, "%d", &num) == 1)
+        for (int j = 0; j < quantidade - i - 1; j++) 
         {
-    
-            numeros[*quantidade] = num;
-            (*quantidade)++;
-        }
-
-    fclose(arquivo);
-}
-
-
-void bubbleSort(int *numeros, int quantidade) {
-    
-    for (int i = 0; i < quantidade - 1; i++) {
-        for (int j = 0; j < quantidade - i - 1; j++) {
-            if (numeros[j] > numeros[j + 1]) {
-                int temp = numeros[j];
+            if (numeros[j] > numeros[j + 1]) 
+            {
+                temp = numeros[j];
                 numeros[j] = numeros[j + 1];
                 numeros[j + 1] = temp;
             }
@@ -138,20 +120,24 @@ void bubbleSort(int *numeros, int quantidade) {
     }
 }
 
-//Recusão
+//Implementação do particionamento da divisão do Quick Sort
 int particionarQuickSort(int *numeros, int esquerda, int direita){
     
-    if(esquerda < direita) 
+    int temp;
+    int i;
+    int numEscolhido;
+
+    if(esquerda < direita)
     {
-        int numEscolhido = numeros[direita];
-        int i = esquerda - 1;
+        numEscolhido = numeros[direita];
+        i = esquerda - 1;
 
         for(int j = esquerda; j < direita; j++)
         {
-            if(numeros[j] <= numEscolhido) 
+            if(numeros[j] <= numEscolhido)
             {
                 i++;
-                int temp = numeros[i];
+                temp = numeros[i];
                 numeros[i] = numeros[j];
                 numeros[j] = temp;
             }
@@ -174,14 +160,15 @@ int particionarQuickSort(int *numeros, int esquerda, int direita){
     return esquerda;
 }
 
+//Implementação do algoritmo Insertion Sort
 void insertionSort(int *numeros, int quantidade){
-    
-    for (int i = 1; i < quantidade; i++) 
+
+    for (int i = 1; i < quantidade; i++)
     {
         int num = numeros[i];
         int j = i - 1;
 
-        while (j >= 0 && numeros[j] > num) 
+        while (j >= 0 && numeros[j] > num)
         {
             numeros[j + 1] = numeros[j];
             j--;
@@ -192,61 +179,64 @@ void insertionSort(int *numeros, int quantidade){
 }
 
 
+//Implementação do particionamento do Merge Sort
 void particionarMergeSort(int *numeros, int esquerda, int meio, int direita){
-    
+
     int i, j, k;
     int n1 = meio - esquerda + 1;
     int n2 = direita - meio;
 
-    int L[n1], R[n2];
+    int ESQ[n1], DIR[n2];
 
     for (i = 0; i < n1; i++){
-        L[i] = numeros[esquerda + i];
+        ESQ[i] = numeros[esquerda + i];
     }
     for (j = 0; j < n2; j++){
-        R[j] = numeros[meio + 1 + j];
+        DIR[j] = numeros[meio + 1 + j];
     }
 
     i = 0;
     j = 0;
-    k = esquerda;
-    
+    left = esquerda;
+
     while (i < n1 && j < n2)
     {
-        if(L[i] <= R[j]) 
+        if(ESQ[i] <= DIR[j])
         {
-            numeros[k] = L[i];
+            numeros[left] = ESQ[i];
             i++;
         }else{
-            
-            numeros[k] = R[j];
+
+            numeros[left] = DIR[j];
             j++;
         }
-        k++;
+        left++;
     }
 
-    while (i < n1) 
+    while (i < n1)
     {
-        numeros[k] = L[i];
+        numeros[left] = ESQ[i];
         i++;
-        k++;
+        left++;
     }
     
         while (j < n2)
         {
-            numeros[k] = R[j];
+            numeros[left] = DIR[j];
             j++;
-            k++;
+            left++;
         }
 }
-    
 
 
-// Implementação recursiva do Merge Sort
+
+//Implementação recursiva do Merge Sort
 void mergeSortRecursivo(int *numeros, int esquerda, int direita){
     
+    int meio;
+
     if(esquerda < direita){
-        int meio = esquerda + (direita - esquerda) / 2;
+        meio = esquerda + (direita - esquerda) / 2;
 
         mergeSortRecursivo(numeros, esquerda, meio);
         mergeSortRecursivo(numeros, meio + 1, direita);
@@ -255,31 +245,30 @@ void mergeSortRecursivo(int *numeros, int esquerda, int direita){
     }
 }
 
-//Recusão
+//Implementação recursiva do algoritmo do Quick Sort
 void quickSortRecursivo(int *numeros, int esquerda, int direita){
-    
+
     int numEscolhido = 0;
-    
+
     if (esquerda < direita)
     {
         numEscolhido = particionarQuickSort(numeros, esquerda, direita);
-        
+
         quickSortRecursivo(numeros, esquerda, numEscolhido - 1);
         quickSortRecursivo(numeros, numEscolhido + 1, direita);
     }
 }
 
 
-//Merge Sort interativo
+//Implementação do algoritmo de Merge Sort Iterativo
 void mergeSortIterativo(int *numeros, int quantidade){
-    
+
     int meio = 0, direita = 0;
-    
-    for (int tamanhoAtual = 1; tamanhoAtual <= quantidade - 1; tamanhoAtual *= 2) 
+
+    for (int tamanhoAtual = 1; tamanhoAtual <= quantidade - 1; tamanhoAtual *= 2)
     {
-        for (int esquerda = 0; esquerda < quantidade - 1; esquerda += 2 * tamanhoAtual) 
+        for (int esquerda = 0; esquerda < quantidade - 1; esquerda += 2 * tamanhoAtual)
         {
-            
             meio = esquerda + tamanhoAtual - 1;
             direita = fmin(esquerda + 2 * tamanhoAtual - 1, quantidade - 1);
 
@@ -289,33 +278,30 @@ void mergeSortIterativo(int *numeros, int quantidade){
 }
 
 
-// Implementação iterativa do Quick Sort
+//Implementação do algoritmo Iterativa do Quick Sort
 void quickSortIterativo(int *numeros, int quantidade){
-    
-    int pilha[quantidade];
+
+    int ordem[quantidade];
     int topo = -1;
 
-    pilha[++topo] = 0;
-    pilha[++topo] = quantidade - 1;
+    ordem[++topo] = 0;
+    ordem[++topo] = quantidade - 1;
 
-    while (topo >= 0) 
+    while (topo >= 0)
     {
-        int direita = pilha[topo--];
-        int esquerda = pilha[topo--];
+        int direita = ordem[topo--];
+        int esquerda = ordem[topo--];
 
-        int baseIndex = particionarQuickSort(numeros, esquerda, direita);
+        int pontoPartida = particionarQuickSort(numeros, esquerda, direita);
 
-        if (baseIndex - 1 > esquerda) {
-            pilha[++topo] = esquerda;
-            pilha[++topo] = baseIndex - 1;
+        if (pontoPartida - 1 > esquerda) {
+            ordem[++topo] = esquerda;
+            ordem[++topo] = pontoPartida - 1;
         }
 
-        if (baseIndex + 1 < direita) {
-            pilha[++topo] = baseIndex + 1;
-            pilha[++topo] = direita;
+        if (pontoPartida + 1 < direita) {
+            ordem[++topo] = pontoPartida + 1;
+            ordem[++topo] = direita;
         }
     }
 }
-
-
-
