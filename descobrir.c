@@ -8,6 +8,7 @@ void interageOperacoes(){
         printf("10. Descobrir o fatorial de um número\n");
         printf("11. Descobrir o somatório de um número\n");
         printf("12. Descobrir o fatorial de um número\n");
+        printf("0. Sair\n");
         
         scanf("%d", &opcao);
         
@@ -49,8 +50,9 @@ void interageOperacoes(){
             case 0: {
               
             printf("Saindo do programa.\n");
-            }//Falta o link de retorno pro código
-            return;
+            return
+                }
+            break;
              
             default:
             printf("Erro! Por favor, escolha uma das opções fornecidadas.\n");
