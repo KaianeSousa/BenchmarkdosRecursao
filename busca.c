@@ -2,31 +2,38 @@
 
 void interageBusca(){
     
-       
-      int opcao;  
-      
+    int num = 0;
+    char nomeArquivo[] = "numeros.txt";
+    int numeros[100];
+    int quantidade;
+    FILE *arquivo = NULL; //Declaração da variável arquivo
+    int opcao;
+
+
       do{
-          //Menu de operações
-        printf("\nOperações Disponíveis:\n");
+        //Menu de buscas
+        printf("\nBuscas Disponíveis:\n");
         printf("1. Busca Linear\n");
         printf("2. Busca Sentinela\n");
         printf("3. Busca Binária\n");
-        printf("0. Retornar para o menu principal\n");
-        
+        printf("0. Sair\n");
+
         scanf("%d", &opcao);
-        
-         switch (opcao) 
+
+         switch (opcao)
         {
             case 1: {
-            
-                int num;
-                
+
                 printf("Digite o número que deseja buscar: ");
                 scanf("%d", &num);
+                
                 int posicao = buscaLinear(numeros, quantidade, num);
-                if (posicao != -1) {
+                
+                if(posicao != -1){
+                    
                     printf("Número encontrado na posição %d.\n", posicao);
-                } else {
+                    
+                }else{
                     printf("Número não encontrado.\n");
                 }
             }
@@ -34,115 +41,90 @@ void interageBusca(){
 
             case 2:
             {
-            
-                int num;
-                
+
                 printf("Digite o número que deseja buscar: ");
                 scanf("%d", &num);
-                int posicao = buscaSentinela(numeros, quantidade, num);
                 
+                int posicao = buscaSentinela(numeros, quantidade, num);
+
                 if(posicao != -1)
                 {
                     printf("Número encontrado na posição %d.\n", posicao);
-                    
+
                 }else{
-                    
+
                     printf("Número não encontrado.\n");
                 }
             }
             break;
 
             case 3:
-            { 
-            
-            int num;
-            
+            {
+
             printf("Digite o número que deseja buscar: ");
             scanf("%d", &num);
-            
+
             int posicao = buscaBinariaRecursiva(numeros, 0, quantidade - 1, num);
-                if (posicao != -1) 
+            
+                if(posicao != -1)
                 {
                     printf("Número encontradao na posição %d.\n", posicao);
-                    
+
                 }else{
-                    
+
                     printf("Número não encontrado.\n");
                 }
         }
             break;
-            
-            case 0: {
-                
+
+            case 0: 
+            {
                      printf("Saindo do programa.\n");
-            }//Falta o link de retorno pro código
+                     return;
+            }
                 break;
-                
+
                 default:
                 printf("Erro! Por favor, escolha uma das opções fornecidadas.\n");
         }
-    
-      }while(opcao !=0);
-        
-    
+
+      }while(opcao != 0);
+
+
 }
-
-void carregarNumeros(const char *nomeArquivo, int *numeros, int *quantidade){
-
-    int num;
-    *quantidade = 0;
-    
-    FILE *arquivo = fopen(nomeArquivo, "r");
-    
-    if (arquivo == NULL) 
-    {
-        printf("Erro ao abrir o arquivo.\n");
-        exit(1);
-    }
-
-        while (fscanf(arquivo, "%d", &num) == 1)
-        {
-    
-            numeros[*quantidade] = num;
-            (*quantidade)++;
-        }
-
-    fclose(arquivo);
-}
-
 
 int buscaLinear(int *numeros, int quantidade, int num){
-    
-    for (int i = 0; i < quantidade; i++) 
+
+    for (int i = 0; i < quantidade; i++)
     {
         if (numeros[i] == num) {
-            return i;
-        }
+            return i;        }
     }
-    
+
     return -1;
 }
 
-int buscaSentinela(int *numeros, int quantidade, int num) 
+int buscaSentinela(int *numeros, int quantidade, int num)
 {
     int last = numeros[quantidade - 1];
-    numeros[quantidade - 1] = num;
     int i = 0;
+    
+    numeros[quantidade - 1] = num;
 
-    while (numeros[i] != num) 
+    while (numeros[i] != num)
     {
         i++;
     }
 
     numeros[quantidade - 1] = last;
 
-    if (i < quantidade - 1 || numeros[quantidade - 1] == num) 
+    if (i < quantidade - 1)
     {
         return i;
-        
-    } 
+
+    }
     
-    else 
+    else
     {
         return -1;
     }
@@ -172,11 +154,5 @@ int buscaBinariaRecursiva(int *numeros, int esquerda, int direita, int num)
 
     return -1;
 }
-
-    
-        
-        
-        
-        
 
 
