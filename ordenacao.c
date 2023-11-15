@@ -303,15 +303,15 @@ void quickSortIterativo(int *numeros, int quantidade){
         int direita = pilha[topo--];
         int esquerda = pilha[topo--];
 
-        int pivoIndex = particionarQuickSort(numeros, esquerda, direita);
+        int baseIndex = particionarQuickSort(numeros, esquerda, direita);
 
-        if (pivoIndex - 1 > esquerda) {
+        if (baseIndex - 1 > esquerda) {
             pilha[++topo] = esquerda;
-            pilha[++topo] = pivoIndex - 1;
+            pilha[++topo] = baseIndex - 1;
         }
 
-        if (pivoIndex + 1 < direita) {
-            pilha[++topo] = pivoIndex + 1;
+        if (baseIndex + 1 < direita) {
+            pilha[++topo] = baseIndex + 1;
             pilha[++topo] = direita;
         }
     }
