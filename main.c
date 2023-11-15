@@ -1,29 +1,23 @@
-#include "blb.h"
-
+#include "blb.h" //Inclui o arquivo da biblioteca "blb.h"
 
 int main(){
-    
-    char nomeArquivo[] = "numeros.txt";
-    int numeros[1000];
-    int quantidade;
-    FILE *arquivo = NULL; //Declaração da variável arquivo
 
     int opcao;
     
     do{
-          //Menu de operações
+        //Menu de operações
         printf("\nOperações Disponíveis:\n");
         printf("1. Busca\n");
         printf("2. Ordenação\n");
         printf("3. Descobrir número\n");
         printf("4. Manipular arquivo\n");
         printf("0. Sair");
-        scanf("%d", &opcao);
+        scanf("%d", &opcao); //Leitura da escolha do usuário
         
         switch(opcao){
             
             case 1: 
-                interageBusca();
+                interageBusca(); //Chama a função para interação com a busca
                 break;
             case 2:
                 interageOrdenacao();
