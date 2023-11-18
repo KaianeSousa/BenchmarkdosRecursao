@@ -12,7 +12,7 @@ int main(){
         printf("2. Ordenação\n");
         printf("3. Descobrir número\n");
         printf("4. Manipular arquivo\n");
-        printf("0. Sair");
+        printf("0. Sair\n");
         scanf("%d", &opcao); //Variável para a leitura da escolha do usuário
         
         switch(opcao){
