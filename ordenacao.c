@@ -163,10 +163,13 @@ int particionarQuickSort(int *numeros, int esquerda, int direita){
 //Implementação do algoritmo Insertion Sort
 void insertionSort(int *numeros, int quantidade){
 
+    int num;
+    int j;
+
     for (int i = 1; i < quantidade; i++)
     {
-        int num = numeros[i];
-        int j = i - 1;
+        num = numeros[i];
+        j = i - 1;
 
         while (j >= 0 && numeros[j] > num)
         {
@@ -182,7 +185,7 @@ void insertionSort(int *numeros, int quantidade){
 //Implementação do particionamento do Merge Sort
 void particionarMergeSort(int *numeros, int esquerda, int meio, int direita){
 
-    int i, j, k;
+    int i, j, left;
     int n1 = meio - esquerda + 1;
     int n2 = direita - meio;
 
