@@ -2,7 +2,7 @@
 
 void interageOrdenacao(){
 
-    char nomeArquivo[] = "numeros.txt"; //Nome do arquivo a ser lida
+    char nomeArquivo[] = "numeros.txt"; //Nome do arquivo a ser lido
     int numeros[100]; //Array que armazenará os números a serem ordenados
     int quantidade; //Variável para armazenar a quantidade de números lidos
     FILE *arquivo = NULL; //Declaração da variável arquivo
@@ -20,7 +20,7 @@ void interageOrdenacao(){
         printf("6. Ordenar com Merge Sort Recursivo\n");
         printf("0. Sair\n");
 
-        scanf("%d", &opcao); //Leitura da escolha do usuário
+        scanf("%d", &opcao); //Variável para a leitura da escolha do usuário
 
     switch(opcao){
              //Mede o tempo de execução do Bubble Sort e exibe os resultados
@@ -85,10 +85,10 @@ void interageOrdenacao(){
             printf("Números ordenados com Merge Sort Recursivo. \nTempo: %f segundos.\n", (double)(fim - inicio) / CLOCKS_PER_SEC);
             }
             break;
-        //Encerra o programa
+        //Encerra essa função e volta para a anterior
         case 0:
         {
-            printf("Saindo do programa.\n");
+            printf("Saindo do programa...\n");
             return;
         }
         break;
@@ -305,3 +305,5 @@ void quickSortIterativo(int *numeros, int quantidade){
         }
     }
 }
+
+
