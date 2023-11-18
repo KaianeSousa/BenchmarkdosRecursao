@@ -1,8 +1,9 @@
 #include "blb.h" //Inclui o arquivo da biblioteca "blb.h"
 
+//Função de interação para realizar as operações disponíveis
 void interageOperacoes(){
 
-    int opcao;
+    int opcao; //Variável para a leitura da escolha do usuário
 
     do{
         //Menu de operações
@@ -15,7 +16,7 @@ void interageOperacoes(){
 
         switch(opcao){
             
-            int resultado = 0;
+            int resultado = 0; //Variável para receber o resultado de cada operação
 
             case 1: //Calcula o fatorial de um número digitado pelo usuário
             {
