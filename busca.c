@@ -9,9 +9,12 @@ void interageBusca(){
     int quantidade; //Variável para armazenar a quantidade de números lidos
     FILE *arquivo = NULL; //Declaração da variável arquivo
     int opcao; //Variável para a leitura da escolha do usuário
-
-
+    
+    //Chamada da função com o arquivo onde os números foram inseridos, para a leitura do mesmo a fim de realizar as buscas
+     carregarNumeros(nomeArquivo, numeros, &quantidade);
+     
       do{
+          
         //Menu de buscas
         printf("\nBuscas Disponíveis:\n");
         printf("1. Busca Linear\n");
@@ -99,8 +102,11 @@ int buscaLinear(int *numeros, int quantidade, int num){
 
     for (int i = 0; i < quantidade; i++)
     {
-        if (numeros[i] == num) {
-            return i;        }
+        if (numeros[i] == num) 
+        {
+            return i;        
+            
+        }
     }
 
     return -1;
@@ -108,7 +114,7 @@ int buscaLinear(int *numeros, int quantidade, int num){
 //Função de busca sentinela em um array
 int buscaSentinela(int *numeros, int quantidade, int num)
 {
-    int last = numeros[quantidade - 1];
+    int ultimo = numeros[quantidade - 1];
     int i = 0;
     
     numeros[quantidade - 1] = num;
@@ -118,7 +124,7 @@ int buscaSentinela(int *numeros, int quantidade, int num)
         i++;
     }
 
-    numeros[quantidade - 1] = last;
+    numeros[quantidade - 1] = ultimo;
 
     if (i < quantidade - 1)
     {
