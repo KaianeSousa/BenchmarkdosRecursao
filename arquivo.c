@@ -8,7 +8,7 @@ void interageArquivo(){
     int quantidade; //Variável para armazenar a quantidade de números lidos
     FILE *arquivo = NULL; //Declaração da variável arquivo
     
-    int opcao;
+    int opcao; //Variável para armazenar a escolha do usuário
 
         do{
          //Menu para interação com o arquivo
