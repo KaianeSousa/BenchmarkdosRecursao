@@ -7,7 +7,7 @@ void interageOperacoes(){
 
     do{
         //Menu de operações
-        printf("Qual operação deseja realizar?\n")
+        printf("Qual operação deseja realizar?\n");
         printf("1. Descobrir o fatorial de um número\n");
         printf("2. Descobrir o somatório de um número\n");
         printf("3. Descobrir a sequência de fibonacci de um número\n");
