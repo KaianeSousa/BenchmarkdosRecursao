@@ -1,25 +1,27 @@
-#include "blb.h"
+#include "blb.h" //Inclui o arquivo da biblioteca "blb.h"
 
+//Função principal para interação com o arquivo
 void interageArquivo(){
 
-    char nomeArquivo[] = "numeros.txt";
-    int numeros[100];
-    int quantidade;
+    char nomeArquivo[] = "numeros.txt"; //Nome do arquivo a ser lido
+    int numeros[100]; //Array que armazenará os números a serem ordenados
+    int quantidade; //Variável para armazenar a quantidade de números lidos
     FILE *arquivo = NULL; //Declaração da variável arquivo
+    
     int opcao;
 
         do{
-        //Menu dos arquivos
+         //Menu para interação com o arquivo
         printf("\nO que deseja fazer com o arquivo?:\n");
         printf("1. Adicionar números\n");
         printf("2. Limpar arquivos\n");
         printf("0. Sair\n");
 
-        scanf("%d", &opcao); //Leitura da escolha do usuário
+        scanf("%d", &opcao); //Variável para a leitura da escolha do usuário
 
         switch(opcao){
 
-    case 1:
+    case 1: //Opção para adicionar números ao arquivo
             {
                 int novaQuantidade, novoNumero;
 
@@ -28,19 +30,16 @@ void interageArquivo(){
 
                 printf("Digite os números (um por linha):\n");
 
-                for(int i = 0; i < novaQuantidade; i++)
-                {
+                for(int i = 0; i < novaQuantidade; i++){
                     scanf("%d", &novoNumero);
-                        
+
                     arquivo = fopen(nomeArquivo, "r");
                     int existe = 0;
                     int numLido;
 
                     if(arquivo != NULL){
-                        while (fscanf(arquivo, "%d", &numLido) != EOF)
-                        {
-                            if(numLido == novoNumero) 
-                            {
+                        while (fscanf(arquivo, "%d", &numLido) != EOF){
+                            if (numLido == novoNumero) {
                                 printf("\nO número %d já existe. Digite outro: ", novoNumero);
                                 i--;
                                 fclose(arquivo);
@@ -50,10 +49,8 @@ void interageArquivo(){
                         }
                     }
 
-                    if(existe != novoNumero)
-                    {
+                    if(existe != novoNumero){
                         arquivo = fopen(nomeArquivo, "a");
-                            
                         if (arquivo == NULL) {
                             printf("Erro! Não foi possível abrir o arquivo.\n");
                             return;
@@ -61,8 +58,7 @@ void interageArquivo(){
                         fprintf(arquivo, "%d\n", novoNumero);
                     }
 
-                    if(arquivo != NULL)
-                    {
+                    if (arquivo != NULL) {
                         fclose(arquivo);
                         arquivo = NULL;
                     }
@@ -72,8 +68,9 @@ void interageArquivo(){
             }
             break;
 
-            case 2:
+            case 2:  //Opção para limpar o conteúdo do arquivo
             {
+
                 int interacao;
 
                 printf("Tem certeza de que deseja eliminar o conteúdo desse arquivo? Essa ação é irreversível.\n");
@@ -83,24 +80,27 @@ void interageArquivo(){
                 if(interacao == 0)
                 {
                     limparArquivo(nomeArquivo);
+
                 }
             }
             break;
-                
-            case 0:
+
+            case 0: //Encerra essa função e volta para a anterior
             {
-                printf("Saindo do programa.\n");
+                printf("Saindo do programa...\n");
                 return;
             }
                 break;
 
             default:
-                printf("Opção inválida.\n");
-        }
+                printf("Opção inválida.\n"); //Mensagem de opção inválida
+         }
+    
+    }while(opcao != 0);
 
-        }while(opcao != 0);
 }
 
+//Função para carregar números do arquivo para um array
 void carregarNumeros(const char *nomeArquivo, int *numeros, int *quantidade){
 
     int num;
@@ -113,6 +113,7 @@ void carregarNumeros(const char *nomeArquivo, int *numeros, int *quantidade){
         printf("Erro ao abrir o arquivo.\n");
         exit(1);
     }
+
         while (fscanf(arquivo, "%d", &num) == 1)
         {
 
@@ -123,11 +124,11 @@ void carregarNumeros(const char *nomeArquivo, int *numeros, int *quantidade){
     fclose(arquivo);
 }
 
-void limparArquivo(const char *nomeArquivo){
-        
+//Função para limpar o conteúdo do arquivo
+void limparArquivo(const char *nomeArquivo) {
     FILE *arquivo = fopen(nomeArquivo, "w");
-        
-    if(arquivo == NULL){
+
+    if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo para limpeza.\n");
         return;
     }
